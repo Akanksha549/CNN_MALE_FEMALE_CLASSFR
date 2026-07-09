@@ -127,12 +127,23 @@ st.caption(
     "Deep Learning • TensorFlow • Keras • Streamlit"
 )
 
+import os
+
+MODEL_PATH = "male_female_eye_model.keras"
+
+if not os.path.exists(MODEL_PATH):
+    st.error(f"{MODEL_PATH} not found.")
+    st.stop()
+
 # -------------------------------------------------
 # LOAD MODEL
 # -------------------------------------------------
 @st.cache_resource
 def load_model():
-    return tf.keras.models.load_model("male_female_eye_model.keras")
+    return tf.keras.models.load_model(
+        "male_female_eye_model.keras",
+        compile=False
+    )
 
 try:
     model = load_model()
